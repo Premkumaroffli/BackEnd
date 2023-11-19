@@ -7,9 +7,9 @@ header("Access-Control-Max-Age: 3600");
 
 // ... rest of your PHP code
 
-class App_users_model extends CI_Model {
+class Public_issues_model extends CI_Model {
     
-    protected $table = 'app_users';
+    protected $table = 'public_issues';
 
     public function __construct() {
         parent::__construct();
@@ -29,8 +29,8 @@ class App_users_model extends CI_Model {
         }
     }
    
-    public function save_user($data) {
-        $this->db->insert('app_users', $data);
+    public function saveformData($data) {
+        $this->db->insert('public_issues', $data);
         return $this->db->insert_id();
     }
 

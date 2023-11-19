@@ -530,3 +530,9 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+
+$config['upload_path'] = './uploads/images'; // Set the path where the uploaded files will be stored
+$config['allowed_types'] = 'gif|jpg|jpeg|png'; // Define the allowed file types
+$config['max_size'] = 1024; // Set the maximum file size in kilobytes
+$config['encrypt_name'] = TRUE; // Encrypt the uploaded file name for security
