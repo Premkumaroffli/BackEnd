@@ -23,11 +23,13 @@ class Api extends CI_Controller {
         $password = $data['password'];
         $user = $this->app_user->validate_user($email, $password);
         
+        $data = new StdClass;
+        $data->token = "ajkflforiigjbpdkelfjfobjjblgnkduenvmljihgyrrtfuttew4ss";
 
         if($user) {
             $response['status'] = 'success';
             $response['message'] = 'Login successful';
-            $response['user'] = $user;
+            $response['data'] = $data;
         } else {
             $response['status'] = 'failed';
             $response['message'] = 'Invalid username or password';
