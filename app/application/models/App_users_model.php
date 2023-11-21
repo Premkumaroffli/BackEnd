@@ -5,7 +5,8 @@ header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Ac
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Max-Age: 3600");
 
-// ... rest of your PHP code
+// CREATE TABLE `myDB`.`app_users` (`id` INT NOT NULL AUTO_INCREMENT , 
+// `username` VARCHAR(255) NOT NULL , `email` VARCHAR(255) NOT NULL , `password` VARCHAR(255) NOT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
 
 class App_users_model extends CI_Model {
     
@@ -31,7 +32,7 @@ class App_users_model extends CI_Model {
    
     public function save_user($data) {
         $this->db->insert('app_users', $data);
-        return $this->db->insert_id();
+        return true;
     }
 
 }

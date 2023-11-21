@@ -1,6 +1,6 @@
 <?php
 header("Access-Control-Allow-Origin: *");
-header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE");
+header("Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS");
 header("Access-Control-Allow-Headers: Origin, X-Requested-With, Content-Type, Accept");
 header("Access-Control-Allow-Credentials: true");
 header("Access-Control-Max-Age: 3600");
@@ -14,6 +14,7 @@ class Public_issues_model extends CI_Model {
     public function __construct() {
         parent::__construct();
         $this->load->database();
+        $this->load->helper('url');
     }
 
     public function validate_user($email, $password) {
@@ -31,7 +32,13 @@ class Public_issues_model extends CI_Model {
    
     public function saveformData($data) {
         $this->db->insert('public_issues', $data);
-        return $this->db->insert_id();
+        return true;
+    }
+
+    public function getAllData() {
+        $query = $this->db->get('public_issues');
+        $data = $query->result();
+        return $query;
     }
 
 }

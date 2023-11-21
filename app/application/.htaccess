@@ -1,6 +1,6 @@
 <IfModule mod_rewrite.c>
     RewriteEngine On
-    RewriteBase /your_codeigniter_project/
+    RewriteBase /app/
 
     # Allow any files or directories that exist to be displayed directly
     RewriteCond %{REQUEST_FILENAME} !-f
@@ -16,3 +16,8 @@
     Header set Access-Control-Allow-Headers "Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With"
     Header set Access-Control-Allow-Methods "POST, GET, OPTIONS"
 </IfModule>
+
+<FilesMatch "\.(jpg|jpeg|png|gif|pdf)$">
+    Order allow,deny
+    Allow from all
+</FilesMatch>

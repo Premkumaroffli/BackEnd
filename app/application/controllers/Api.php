@@ -18,6 +18,7 @@ class Api extends CI_Controller {
         //Handle login logic here
         $formdata = json_decode(file_get_contents('php://input'), true);
         $data = $formdata['formdata'];
+        $username = $data['username'];
         $email = $data['email'];
         $password = $data['password'];
         $user = $this->app_user->validate_user($email, $password);
@@ -51,14 +52,12 @@ class Api extends CI_Controller {
     {
         $data = json_decode(file_get_contents('php://input'), true);
         $formdata = $data['formdata'];
-        echo json_encode($formdata);
         $user_id = $this->app_user->save_user($formdata);
-
         // Generate JWT token
         // $this->load->library('jwt');
         // $token = $this->generate_token($user_id);
 
-        if($user)
+        if($user_id)
         {
             $response['status'] = 'success';
             $response['message'] = 'Login successful';
@@ -69,6 +68,8 @@ class Api extends CI_Controller {
             $response['status'] = 'failed';
             $response['message'] = 'Invalid username or password';
         }
+
+        echo json_encode($response);
         
     }
 

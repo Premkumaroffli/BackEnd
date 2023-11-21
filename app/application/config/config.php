@@ -532,7 +532,7 @@ $config['rewrite_short_tags'] = FALSE;
 $config['proxy_ips'] = '';
 
 
-$config['upload_path'] = './uploads/images'; // Set the path where the uploaded files will be stored
+$config['upload_path'] = '/Applications/XAMPP/xamppfiles/htdocs/Backend/app/application/uploads';
 $config['allowed_types'] = 'gif|jpg|jpeg|png'; // Define the allowed file types
 $config['max_size'] = 1024; // Set the maximum file size in kilobytes
 $config['encrypt_name'] = TRUE; // Encrypt the uploaded file name for security
