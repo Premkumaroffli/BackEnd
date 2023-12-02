@@ -32,7 +32,13 @@ class Public_issues_model extends CI_Model {
    
     public function saveformData($data) {
         $this->db->insert('public_issues', $data);
-        return true;
+        return $data;
+    }
+
+    public function updateformData($data, $id) {
+        $this->db->where('id', $id);
+        $this->db->update('public_issues', $data);
+        return $data;
     }
 
     public function getAllData() {

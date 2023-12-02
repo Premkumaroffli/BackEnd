@@ -40,7 +40,6 @@ class Formdata extends CI_Controller {
               // Process file data or save to the database
               $data = array(
                 'name' => $this->input->post('name'),
-                'issue' => $this->input->post('issues'),
                 'complaint' => $this->input->post('complaint'),
                 'address' => $this->input->post('address'),
                 'phone' => $this->input->post('phone'),
@@ -54,6 +53,7 @@ class Formdata extends CI_Controller {
                     $response['status'] = 'success';
                     $response['message'] = 'data submitted';
                     $response['user'] = $user;
+                    $response['data'] = $data;
                 }
                 else 
                 {
@@ -75,9 +75,74 @@ class Formdata extends CI_Controller {
         
     }
 
+    public function statusdetails()
+    {
+        $id = $this->input->post('id');
+        $viewed = $this->input->post('viewed');
+        $processing = $this->input->post('processing');
+        $completed = $this->input->post('completed');
+
+        if (!empty($_FILES['image']['name'])) 
+        {
+            $config['upload_path'] = '/Applications/XAMPP/xamppfiles/htdocs/Backend/app/application/uploads';
+            $config['allowed_types'] = 'gif|jpg|jpeg|png';
+            $this->load->library('upload', $config);
+
+            $path_url = 'uploads/';
+        
+            if($this->upload->do_upload('image')) {
+              // File upload success
+              $fileData = $this->upload->data();
+              // Process file data or save to the database
+              $data = array(
+                'viewed' => $this->input->post('viewed'),
+                'processing' => $this->input->post('processing'),
+                'completed' => $this->input->post('completed'),
+                'completed_image' => $path_url . $this->upload->data('file_name')
+              );
+
+              $user = $this->public_issues->updateformData($data, $id);
+
+                if($user) 
+                {   
+                    $response['status'] = 'success';
+                    $response['message'] = 'data submitted';
+                    $response['user'] = $user;
+                    $response['data'] = $data;
+                }
+                else 
+                {
+                    $response['status'] = 'failed';
+                    $response['message'] = 'Invalid data not submitted';
+                }
+              echo json_encode($response);
+            } 
+            else{
+              // File upload failure
+              $error = $this->upload->display_errors();
+              echo json_encode(['status' => 'error', 'message' => $error]);
+            }
+          }
+        else 
+        {
+            $data = array(
+              'viewed' => $this->input->post('viewed'),
+              'processing' => $this->input->post('processing'),
+              'completed' => $this->input->post('completed')
+            );
+            $user = $this->public_issues->updateformData($data, $id);
+            echo json_encode(['status' => 'success', 'message' => 'No file uploaded']);
+        }
+        
+    }
+
     public function getAllData() {
         $query = $this->db->get('public_issues');
         $data = $query->result();
+        foreach($data as $d)
+        {
+          $d->color = 'bg-red-400';
+        }
         echo json_encode($data);
     }
     

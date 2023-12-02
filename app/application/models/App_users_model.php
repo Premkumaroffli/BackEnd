@@ -18,12 +18,13 @@ class App_users_model extends CI_Model {
     }
 
     public function validate_user($email, $password) {
+        $this->db->select('user_type');
         $this->db->where('email', $email);
         $this->db->where('password', $password); // Hash the password before comparing
         $query = $this->db->get('app_users');
 
         if ($query->num_rows() == 1) {
-            return true;
+            return $query->result();
         } 
         else {
             return false;
